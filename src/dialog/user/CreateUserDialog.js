@@ -15,7 +15,10 @@ import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import api from "../../api";
 
+// 定義「新增使用者」彈窗元件，使用 React Hook 管理狀態
 export default function CreateUserDialog({ open, onClose, onSave }) {
+
+  // 初始化表單數據和狀態，useState 用於管理狀態
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -82,10 +85,13 @@ export default function CreateUserDialog({ open, onClose, onSave }) {
     }
   }, [open]);
 
+  // 處理表單輸入變更的函數
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "email") {
+
+      // 使用正則表達式檢查 Email 格式
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (!emailRegex.test(value)) {
@@ -221,7 +227,7 @@ export default function CreateUserDialog({ open, onClose, onSave }) {
         name: formData.name,
         gender: formData.gender,
         phone: formData.phone,
-        birthday: formData.birthday.getTime(),
+        birthday: formData.birthday.getTime(),// 轉換生日為時間戳格式
       });
       onSave();
       onClose();
